@@ -1,19 +1,31 @@
-function solution(common) {
-    var answer = 0;
-    let check = false;
-    let tmp = common[1] - common[0];
-    let che = Boolean(false);
-    for(let i = common.length - 1; i > 0; i--){
-        if(tmp != common[i] - common[i - 1]) {
-            check = true;
-            continue;
-        }
+function solution(n, t) {
+    while(t>0){
+        n *= 2;
+        t--;
     }
-    if(check) {
-        tmp = common[1] / common[0];
-        answer = common[common.length - 1] * tmp;
-    }else {
-        answer = common[common.length - 1] + tmp;
-    }
-    return answer;
+    return n;
+}
+
+
+***
+    
+- `<<`
+
+function solution(n, t) {
+    return (n << t);
+}
+
+***
+- `pow`
+
+function solution(n,t) {
+    return n * Math.pow(2,t);
+}
+
+***
+
+- `**`
+
+function solution(n, t) {
+    return n * (2 ** (t));
 }
