@@ -1,26 +1,12 @@
-let sizes = [[60, 50], [30, 70], [60, 30], [80, 40]];
-solution(sizes);
-
-function solution(sizes) {
+function solution(t, p) {
     var answer = 0;
     
-    let left = 0;
-    let right = 0;
-    let maxLeft = 0;
-    let maxRight = 0;
+    var answer = 0;
     
-    for(let i = 0; i < sizes.length; i++){
-        if(sizes[i][0] > sizes[i][1]){
-            left = sizes[i][0];
-            right = sizes[i][1];
-        }else {
-            left = sizes[i][1];
-            right = sizes[i][0];
-        }
-        maxLeft = Math.max(maxLeft, left);
-        maxRight = Math.max(maxRight, right);
-    }
-    
-    answer = maxLeft * maxRight;
-    console.log(answer);
+    let n = t.length - p.length + 1;
+    for(let i = 0; i<n; i++){
+        let tmp = t.substr(i,p.length);
+        if(+tmp <= +p) answer++; 
+    }    
+    return answer;
 }
