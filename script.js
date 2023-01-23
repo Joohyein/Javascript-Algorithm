@@ -1,28 +1,20 @@
 function solution(n) {
-    let answer = [];
+    let arr = function(n) {
+        return new Array(n).fill(false);
+    }
+    let arrReset = arr(n + 1);
 
-    for(let i = 1; i <= Math.sqrt(n); i++){
-        let tmp = n / i;
-        if(Number.isInteger(tmp)){
-            answer.push(i);
-            if(i !== tmp){
-                answer.push(tmp);
-            }
+    for(let i = 2; i <= Math.sqrt(n); i++){
+        if(arrReset[i]) continue;
+        for(let j = i * 2; j <= n; j += i){
+            arrReset[j] = true;
         }
     }
-    answer.sort((a, b) => a - b);
-    return answer;
-}
-
-// Set객체 : 자료형에 관계 없이 원시값과 객체 참조 모두 유일한 값만 저장할 수 있다.
-function solution(n) {
-    let answer = new Set;
-
-    for(let i = 1; i <= Math.sqrt(n); i++){
-        if(n % i === 0){
-            answer.add(i);
-            answer.add(n / i);
+    let answer = 0;
+    for(let i = 2; i <= n; i++){
+        if(!arrReset[i]){
+            answer++;
         }
     }
-    return [...answer].sort((a, b) => a - b);
+   return answer;
 }
