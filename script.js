@@ -1,31 +1,26 @@
-function solution(n) {
-    var answer = [];
-    let tmp = n.toString().split("").reverse();
-    for(let i = 0; i < tmp.length; i++){
-    answer.push(+tmp[i]);
-    }
-    return answer;
-}
-
-// --------------------------------
-// map
-
-function solution(n) {
-    var answer = [];
+function solution(s) {
+    var answer = '';
+    s = s.toLowerCase();
     
-    let tmp = n.toString().split("").reverse().map(n => parseInt(n));
-    for(let i = 0; i < tmp.length; i++){
-        answer.push(tmp[i]);
+    let arr = s.split("");
+
+    let cnt = 0;
+    let str = '';
+    for(let i = 0; i < arr.length; i++){
+        if(arr[i]===' ') {
+            cnt = 0;
+            answer += arr[i];
+            continue;
+        }
+        if(cnt % 2 === 0){
+            str = arr[i].toUpperCase();
+            answer += str;
+        } else {
+            answer += arr[i];
+        }
+        cnt++;
+        
     }
-    console.log(answer);
-}
-
-// --------------------------------
-// Array.from
-
-function solution(n) {
-    let reverseN = String(n).split('').reverse();  
-    answer = Array.from(reverseN, (v) => Number(v));
-
+    
     return answer;
 }
