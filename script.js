@@ -1,26 +1,20 @@
-function solution(s) {
+function solution(s, n) {
     var answer = '';
-    s = s.toLowerCase();
-    
-    let arr = s.split("");
+    let alpha = "Aa";
 
-    let cnt = 0;
-    let str = '';
-    for(let i = 0; i < arr.length; i++){
-        if(arr[i]===' ') {
-            cnt = 0;
-            answer += arr[i];
-            continue;
+    for(let i = 0; i < s.length; i++){
+        let num = s[i].charCodeAt(0);
+        let tmp = 0;
+        if(s[i] >= 'A' && s[i] <= 'Z'){
+            tmp = Math.floor((num - alpha.charCodeAt(0) + n) % 26);
+            answer += String.fromCharCode(tmp + alpha.charCodeAt(0));
+        } 
+        else if(s[i] >= 'a' && s[i] <= 'z'){
+            tmp = Math.floor((num - alpha.charCodeAt(1) + n) % 26);
+            answer += String.fromCharCode(tmp + alpha.charCodeAt(1));
         }
-        if(cnt % 2 === 0){
-            str = arr[i].toUpperCase();
-            answer += str;
-        } else {
-            answer += arr[i];
-        }
-        cnt++;
-        
+        else answer += s[i];
     }
-    
+
     return answer;
 }
