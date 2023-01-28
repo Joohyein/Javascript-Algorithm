@@ -1,16 +1,17 @@
-function solution(num) {
-    var answer = 0;
+function solution(x) {
+    var answer = true;
 
-    while(1){
-        if(num === 1 || answer === 500) break;
-        if(Math.floor(num % 2) === 0) num /= 2;
-        else {
-            num *= 3;
-            num++;
-        }
-        answer++;
-
+    let tmp = x;
+    let sum = 0;
+    while(tmp > 0){
+        sum += Math.floor(tmp % 10);
+        tmp /= 10;
     }
-    if(answer === 500) answer = -1;
+    if(x % sum !== 0) answer = false;
     return answer;
 }
+
+
+
+// return 간단하게
+// return !(x % sum);
