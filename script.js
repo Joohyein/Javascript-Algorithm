@@ -1,17 +1,28 @@
-function solution(x) {
-    var answer = true;
+function solution(n) {
+    var answer = 0;
 
-    let tmp = x;
-    let sum = 0;
-    while(tmp > 0){
-        sum += Math.floor(tmp % 10);
-        tmp /= 10;
+    let arr = [];
+    while(n >= 1){
+        arr.unshift(Math.floor(n % 3));
+        n /= 3;
     }
-    if(x % sum !== 0) answer = false;
+    console.log(arr);
+    for(let i = 0; i < arr.length; i++){
+        answer += (3 ** i) * arr[i];
+    }
+
     return answer;
 }
 
+// -------------------------------
 
+// parseInt 
+function solution(n) {
+    var answer = 0;
 
-// return 간단하게
-// return !(x % sum);
+    answer = parseInt(n.toString(3).split('').reverse().join(''), 3);
+
+    return answer;
+}
+- n.toString(3) : n을 3진수로 변환
+- parseInt(’0021’, 3) : 문자열 ‘0021’을 3진수로 변환
