@@ -1,28 +1,23 @@
-function solution(n) {
+function solution(sizes) {
     var answer = 0;
-
-    let arr = [];
-    while(n >= 1){
-        arr.unshift(Math.floor(n % 3));
-        n /= 3;
+    
+    let left = 0;
+    let right = 0;
+    let maxLeft = 0;
+    let maxRight = 0;
+    
+    for(let i = 0; i < sizes.length; i++){
+        if(sizes[i][0] > sizes[i][1]){
+            left = sizes[i][0];
+            right = sizes[i][1];
+        }else {
+            left = sizes[i][1];
+            right = sizes[i][0];
+        }
+        maxLeft = Math.max(maxLeft, left);
+        maxRight = Math.max(maxRight, right);
     }
-    console.log(arr);
-    for(let i = 0; i < arr.length; i++){
-        answer += (3 ** i) * arr[i];
-    }
-
+    
+    answer = maxLeft * maxRight;
     return answer;
 }
-
-// -------------------------------
-
-// parseInt 
-function solution(n) {
-    var answer = 0;
-
-    answer = parseInt(n.toString(3).split('').reverse().join(''), 3);
-
-    return answer;
-}
-- n.toString(3) : n을 3진수로 변환
-- parseInt(’0021’, 3) : 문자열 ‘0021’을 3진수로 변환
