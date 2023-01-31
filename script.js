@@ -1,23 +1,42 @@
-function solution(s, n) {
+function solution(new_id) {
     var answer = '';
-    let alpha = "Aa";
 
-    for(let i = 0; i < s.length; i++){
-        let num = s[i].charCodeAt(0);
-        let tmp = 0;
-        if(s[i] >= 'A' && s[i] <= 'Z'){
-            tmp = Math.floor((num - alpha.charCodeAt(0) + n) % 26);
-            answer += String.fromCharCode(tmp + alpha.charCodeAt(0));
-        } 
-        else if(s[i] >= 'a' && s[i] <= 'z'){
-            tmp = Math.floor((num - alpha.charCodeAt(1) + n) % 26);
-            answer += String.fromCharCode(tmp + alpha.charCodeAt(1));
+    new_id = new_id.toLowerCase();  // 1단계
+
+    new_id = new_id.split('');
+    for(let i = 0; i < new_id.length; i++){
+        if(new_id[i]>='a' && new_id[i]<='z') continue;
+        if(new_id[i] === '-' || new_id[i]==='_' || new_id[i]==='.') continue;
+        if(new_id[i] >= '0' && new_id[i] <= '9') continue;
+        new_id.splice(i, 1);
+        i--;
+    } // 2단계
+
+    for(let i = 0; i < new_id.length - 1; i++){
+        if(new_id[i] === '.'){
+            if(new_id[i + 1] === '.'){
+                new_id.splice(i, 1);
+                i--;
+            }
         }
-        else answer += s[i];
-    }
+    } // 3단계
 
+    if(new_id[0] === '.') new_id.shift();
+    if(new_id[new_id.length - 1] === '.') new_id.pop(); // 4단계
+
+    if(new_id.length === 0) new_id.push('a'); // 5단계
+    if(new_id.length > 15) new_id.splice(15, new_id.length - 15); // 6단계
+
+    if(new_id[new_id.length - 1] === '.') new_id.pop(); // 4단계
+
+
+    if(new_id.length < 3) {
+        let tmp = new_id[new_id.length - 1];
+        while(new_id.length < 3){
+            new_id.push(tmp);
+        }
+    } // 7단계
+
+    answer = new_id.join('');
     return answer;
 }
-
-//charAt 는 index에 해당하는 문자를 리턴
-//chartCodeAt은 유니코드 값을 리턴
