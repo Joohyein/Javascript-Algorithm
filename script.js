@@ -1,22 +1,51 @@
-function solution(lottos, win_nums) {
+function solution(strings, n) {
     var answer = [];
-    let rank = [6, 6, 5, 4, 3, 2, 1];
-    let cnt = 0;
-    let zeroCnt = 0;
-    for(let i = 0; i < 6; i++){
-        if(lottos[i] === 0){
-            zeroCnt++;
-            continue;
-        }
-        for(let j = 0; j < 6; j++){
-            if(lottos[i] === win_nums[j]) cnt++;
-        }
+
+    for(let i = 0; i < strings.length; i++){
+        let char = strings[i][n];
+        strings[i] = char + strings[i];
     }
-    
-    answer.push(rank[cnt + zeroCnt]);
-    answer.push(rank[cnt]);
+    strings.sort();
+    for(let i = 0; i < strings.length; i++){
+        answer[i] = strings[i].substr(1,strings[i].length);
+    }
 
     return answer;
 }
 
-// answer.push(rank[cnt + zeroCnt], rank[cnt]);
+// ---------------------------------------------------
+
+function solution(string, n){
+    if(string.length === 1) return string;
+    let answer = [];
+
+    string.sort((a, b) => {
+        let char1 = a[n];
+        let char2 = b[n];
+
+        if(char1 !== char2) {
+            if(char1 > char2) return 1;
+            else if(char1 < char2) return -1;
+            else return 0;
+        } 
+        else {
+            if(a > b) return 1;
+            else if(a < b) return -1;
+            else return 0;
+        }
+    });
+    
+    return string;
+}
+
+// -----------------------------------------
+// localeCompare
+function solution(strings, n) {
+    return strings.sort((a, b) => {
+			if (a[n] === b[n]) {				
+				a.localeCompare(b) // a가 b보다 전에 위치하므로 음수
+			} else {
+				a[n].localeCompare(b[n])
+		}
+    });
+}
