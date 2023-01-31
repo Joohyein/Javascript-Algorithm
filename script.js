@@ -1,13 +1,22 @@
-
-function solution(numbers){
-    let answer = [];
-    let arrSet = new Set;
-    for(let i = 0; i < numbers.length - 1; i++){
-
-        for(let j = i + 1; j < numbers.length; j++){
-            arrSet.add(numbers[i] + numbers[j]);
+function solution(lottos, win_nums) {
+    var answer = [];
+    let rank = [6, 6, 5, 4, 3, 2, 1];
+    let cnt = 0;
+    let zeroCnt = 0;
+    for(let i = 0; i < 6; i++){
+        if(lottos[i] === 0){
+            zeroCnt++;
+            continue;
+        }
+        for(let j = 0; j < 6; j++){
+            if(lottos[i] === win_nums[j]) cnt++;
         }
     }
-    answer = Array.from(arrSet).sort((a, b) => a - b);
+    
+    answer.push(rank[cnt + zeroCnt]);
+    answer.push(rank[cnt]);
+
     return answer;
 }
+
+// answer.push(rank[cnt + zeroCnt], rank[cnt]);
