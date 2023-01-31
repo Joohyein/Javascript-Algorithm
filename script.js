@@ -1,12 +1,13 @@
-function solution(n, m) {
+function solution(array, commands) {
     var answer = [];
 
-    function solve(a, b){
-        if(a % b === 0) return b;
-        return solve(b, a % b);
+    for(let i = 0; i < commands.length; i++){
+        let start = commands[i][0] - 1;
+        let numCnt = commands[i][1];
+        let value = commands[i][2] - 1;
+
+        let arr = array.slice(start, numCnt);
+        answer.push(arr.sort((a, b) => a - b)[value]);
     }
-    let gcd = solve(m, n);
-    let lcm = m * n / gcd;
-    answer.push(gcd, lcm);
     return answer;
 }
