@@ -1,14 +1,12 @@
-function solution(d, budget) {
-    var answer = 0;
-    
-    d = d.sort((a, b) => a - b);
+function solution(n, m) {
+    var answer = [];
 
-    let tmp = 0;
-    while(answer < d.length){
-        tmp += d[answer];
-        if(tmp > budget) break;
-        answer++;
+    function solve(a, b){
+        if(a % b === 0) return b;
+        return solve(b, a % b);
     }
-
+    let gcd = solve(m, n);
+    let lcm = m * n / gcd;
+    answer.push(gcd, lcm);
     return answer;
 }
