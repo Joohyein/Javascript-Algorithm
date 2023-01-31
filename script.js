@@ -1,13 +1,6 @@
-function solution(array, commands) {
-    var answer = [];
-
-    for(let i = 0; i < commands.length; i++){
-        let start = commands[i][0] - 1;
-        let numCnt = commands[i][1];
-        let value = commands[i][2] - 1;
-
-        let arr = array.slice(start, numCnt);
-        answer.push(arr.sort((a, b) => a - b)[value]);
+function solution(n) {
+    var answer = 0;
+    for(let i = 2; i < n; i++){
+        if(n % i === 1) return i;
     }
-    return answer;
 }
