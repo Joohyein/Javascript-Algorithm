@@ -1,32 +1,31 @@
-function solution(N, stages) {
-    var answer = [];
+function solution(n, lost, reserve) {
+    var answer = 0;
 
-    let cntArr = {};
-    for(let i = 1; i <= N; i++){
-        cntArr[i] = 0;
+    let arr = new Array(n).fill(1);
+    for(let i = 0; i < n; i++){
+        arr[lost[i] - 1]--;
+        arr[reserve[i] - 1]++;
     }
+    arr = arr.splice(0, n);   // 배열로 정렬시키기
 
-    for(let i = 0; i < stages.length; i++){
-        if(cntArr[stages[i]]) cntArr[stages[i]]++;
-        else cntArr[stages[i]] = 1;
-    }
-    console.log(cntArr);
-    let arr = [];
-    let person = stages.length;
-    for(let tmp in cntArr){
-        console.log(person);
-        arr.push([tmp, cntArr[tmp]/person]);
-        person -= cntArr[tmp];
+    for(let i = 0; i < n; i++){
+        if(arr[i] === 0){
+            if(arr[i - 1] === 2) {
+                arr[i - 1]--;
+                arr[i]++;
+                continue;
+            }
+            if(arr[i + 1] === 2){
+                arr[i + 1]--;
+                arr[i]++;
+                continue;
+            }
+        }
 
     }
-    arr = arr.sort((a, b) => {
-        if(a[1] === b[1]) return a - b;
-        return b[1] - a[1];
-    });
+    arr.map((value, i) => {
+        if(value !== 0) answer++;
 
-    for(let i = 0; i < arr.length; i++){
-        if(arr[i][0] > N) continue;
-        answer.push(+arr[i][0]);
-    }
+    })
     return answer;
 }
