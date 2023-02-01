@@ -1,32 +1,22 @@
+// 정규표현식
 function solution(dartResult) {
-    var answer = 0;
+    const bonus = { 'S': 1, 'D': 2, 'T': 3 },
+          options = { '*': 2, '#': -1, undefined: 1 };
 
-    let score = 0;
-    let index = -1;
-    let ansArr = [];
-    for(let i = 0; i < dartResult.length; i++){
-        let tmp = dartResult[i];
-        if(tmp >= 0 && tmp <= 9){
-            score = dartResult[i];
-            index++;
-            if(dartResult[i + 1] == 0) {
-                score = 10;
-                i++;
-            }
-        } 
-        if(tmp == 'S') ansArr.push(score);
-        else if(tmp == 'D') ansArr.push(Math.pow(score, 2));
-        else if(tmp == 'T') ansArr.push(Math.pow(score, 3));
-        else if(tmp == '*') {
-            ansArr[index] *= 2;
-            if(index > 0) ansArr[index - 1] *= 2;
-        }
-        else if(tmp == '#'){
-            ansArr[index] = ansArr[index] * (-1);
-        }
+    let darts = dartResult.match(/\d.?\D/g);
+    console.log(darts);
+
+    for (let i = 0; i < darts.length; i++) {
+        let split = darts[i].match(/(^\d{1,})(S|D|T)(\*|#)?/),
+            score = Math.pow(split[1], bonus[split[2]]) * options[split[3]];
+
+        if (split[3] === '*' && darts[i - 1]) darts[i - 1] *= options['*'];
+
+        darts[i] = score;
     }
-    for(let i = 0; i < 3; i++){
-        answer += +ansArr[i];
-    }
-    return answer;
+
+    return darts.reduce((a, b) => a + b);
 }
+
+let dartResult = "1D2S#10S";
+console.log(solution(dartResult));
