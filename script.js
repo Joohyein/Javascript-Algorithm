@@ -1,29 +1,24 @@
-function solution(n) {
+function solution(board, moves) {
     var answer = 0;
-    for(let i = 1; i <= n; i++){
-        let sum = i;
-        if((i * 2) >= n) break;
-        for(let j = i + 1; j <= n; j++){
-            if(sum >= n){
-                if(sum === n) answer++;
+
+    let arr = [];
+    for(let i = 0; i < moves.length; i++){
+        let pickNum = moves[i] - 1;
+        for(let j = 0; j < board.length; j++){
+            if(board[j][pickNum]){
+                if(arr.length > 0){
+                    if(arr[arr.length - 1] === board[j][pickNum]){
+                        arr.pop();
+                        answer += 2;
+                    }
+                    else arr.push(board[j][pickNum]);
+                }
+                else arr.push(board[j][pickNum]);
+                board[j][pickNum] = 0;
                 break;
             }
-            sum += j;
         }
     }
-    answer++;
+
     return answer;
-}
-
-//-----------------------------
-
-// 점화식
-function solution(n) {
-    let result = 0;
-    for (let i = 1; i <= n; i++) {
-        if (n % i == 0 && i % 2 == 1) {
-            result++;
-        }
-    }
-    return result;
 }
