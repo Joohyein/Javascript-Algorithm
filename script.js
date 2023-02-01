@@ -1,22 +1,29 @@
-// 정규표현식
-function solution(dartResult) {
-    const bonus = { 'S': 1, 'D': 2, 'T': 3 },
-          options = { '*': 2, '#': -1, undefined: 1 };
-
-    let darts = dartResult.match(/\d.?\D/g);
-    console.log(darts);
-
-    for (let i = 0; i < darts.length; i++) {
-        let split = darts[i].match(/(^\d{1,})(S|D|T)(\*|#)?/),
-            score = Math.pow(split[1], bonus[split[2]]) * options[split[3]];
-
-        if (split[3] === '*' && darts[i - 1]) darts[i - 1] *= options['*'];
-
-        darts[i] = score;
+function solution(n) {
+    var answer = 0;
+    for(let i = 1; i <= n; i++){
+        let sum = i;
+        if((i * 2) >= n) break;
+        for(let j = i + 1; j <= n; j++){
+            if(sum >= n){
+                if(sum === n) answer++;
+                break;
+            }
+            sum += j;
+        }
     }
-
-    return darts.reduce((a, b) => a + b);
+    answer++;
+    return answer;
 }
 
-let dartResult = "1D2S#10S";
-console.log(solution(dartResult));
+//-----------------------------
+
+// 점화식
+function solution(n) {
+    let result = 0;
+    for (let i = 1; i <= n; i++) {
+        if (n % i == 0 && i % 2 == 1) {
+            result++;
+        }
+    }
+    return result;
+}
