@@ -1,21 +1,17 @@
-const fs = require('fs');
-const inputData = fs.readFileSync('/dev/stdin').toString().split(' ');
+let input = require('fs').readFileSync('/dev/stdin').toString().split('\n');
 
-function solution(n) {
+let tc = Number(input[0]);
+
+for (let i = 1; i <= tc; i++) {
     let answer = 0;
-    
-    let arr = [500, 100, 50, 10, 5, 1];
+    let cnt = 0;
+    for(let j = 0; j < input[i].length; j++){
+        if(input[i][j] === 'O') cnt++;
+        else cnt = 0;
+        answer += cnt;
 
-    n = 1000 - n;
-
-    for(let i = 0; i < 6; i++){
-        while(Math.floor(n / arr[i])){
-            n -= arr[i];
-            answer++;
-        }
     }
-    return answer;
+    
+  
+    console.log(answer);
 }
-console.log(solution(inputData));
-
-
