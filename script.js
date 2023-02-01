@@ -1,17 +1,32 @@
-let input = require('fs').readFileSync('/dev/stdin').toString().split('\n');
+function solution(dartResult) {
+    var answer = 0;
 
-let tc = Number(input[0]);
-
-for (let i = 1; i <= tc; i++) {
-    let answer = 0;
-    let cnt = 0;
-    for(let j = 0; j < input[i].length; j++){
-        if(input[i][j] === 'O') cnt++;
-        else cnt = 0;
-        answer += cnt;
-
+    let score = 0;
+    let index = -1;
+    let ansArr = [];
+    for(let i = 0; i < dartResult.length; i++){
+        let tmp = dartResult[i];
+        if(tmp >= 0 && tmp <= 9){
+            score = dartResult[i];
+            index++;
+            if(dartResult[i + 1] == 0) {
+                score = 10;
+                i++;
+            }
+        } 
+        if(tmp == 'S') ansArr.push(score);
+        else if(tmp == 'D') ansArr.push(Math.pow(score, 2));
+        else if(tmp == 'T') ansArr.push(Math.pow(score, 3));
+        else if(tmp == '*') {
+            ansArr[index] *= 2;
+            if(index > 0) ansArr[index - 1] *= 2;
+        }
+        else if(tmp == '#'){
+            ansArr[index] = ansArr[index] * (-1);
+        }
     }
-    
-  
-    console.log(answer);
+    for(let i = 0; i < 3; i++){
+        answer += +ansArr[i];
+    }
+    return answer;
 }
